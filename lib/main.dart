@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 // import 'about_section.dart';
 import 'hero_about_section.dart';
 import 'strip_section.dart';
+import 'profile_overview_section.dart';
 
 void main() {
   runApp(const MyApp());
@@ -88,6 +89,7 @@ class HomePage extends StatelessWidget {
           children: [
             HeroAboutSection(),
             StripSection(),
+            ProfileOverviewSection(),
             // Add next sections here
           ],
         ),
