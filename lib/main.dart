@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 // import 'hero_section.dart';
 // import 'about_section.dart';
 import 'hero_about_section.dart';
+import 'strip_section.dart';
 
 void main() {
   runApp(const MyApp());
@@ -86,6 +87,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             HeroAboutSection(),
+            StripSection(),
             // Add next sections here
           ],
         ),
