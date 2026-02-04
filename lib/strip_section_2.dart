@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StripSection extends StatelessWidget {
-  const StripSection({super.key});
+class StripSection2 extends StatelessWidget {
+  const StripSection2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class StripSection extends StatelessWidget {
       width: double.infinity,
       color: Colors.transparent,
       child: Image.asset(
-        'assets/images/strip1.png',
+        'assets/images/strip2.png',
         fit: BoxFit.cover,
         width: double.infinity,
         alignment: Alignment.center,

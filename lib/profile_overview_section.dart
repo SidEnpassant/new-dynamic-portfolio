@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileOverviewSection extends StatelessWidget {
   const ProfileOverviewSection({super.key});
@@ -31,10 +32,10 @@ class ProfileOverviewSection extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(width: 500, child: _ChessCard(isMobile: false)),
+                      SizedBox(width: 780, child: _ChessCard(isMobile: false)),
                       const SizedBox(width: 56),
                       SizedBox(
-                        width: 370,
+                        width: 360,
                         child: _LinksAndLocation(isMobile: false),
                       ),
                     ],
@@ -52,9 +53,11 @@ class _ChessCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 450,
+      width: 700,
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 18 : 40,
-        vertical: isMobile ? 20 : 32,
+        vertical: isMobile ? 20 : 40,
       ),
       decoration: BoxDecoration(
         color: const Color(0xFF10202B),
@@ -88,7 +91,7 @@ class _ChessCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'FIDE rated - 1473 , plays tournament occasionally.',
+            'FIDE rated , plays tournaments occasionally.',
             style: TextStyle(
               fontFamily: 'Manrope',
               fontWeight: FontWeight.w700,
@@ -100,8 +103,8 @@ class _ChessCard extends StatelessWidget {
           Center(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                double maxImgWidth = isMobile ? 160 : 320;
-                double maxImgHeight = isMobile ? 120 : 180;
+                double maxImgWidth = isMobile ? 160 : 500;
+                double maxImgHeight = isMobile ? 120 : 250;
                 return Image.asset(
                   'assets/images/chess.png',
                   width: maxImgWidth,
@@ -124,7 +127,7 @@ class _LinksAndLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           padding: EdgeInsets.symmetric(
@@ -185,16 +188,19 @@ class _LinksAndLocation extends StatelessWidget {
                 children: [
                   _SocialIcon(
                     asset: 'assets/icons/linkedin.png',
+                    url: 'https://www.linkedin.com/in/siddhesdas/',
                     size: isMobile ? 60 : 76,
                   ),
                   const SizedBox(width: 28),
                   _SocialIcon(
                     asset: 'assets/icons/github.png',
+                    url: 'https://github.com/SidEnpassant',
                     size: isMobile ? 60 : 76,
                   ),
                   const SizedBox(width: 28),
                   _SocialIcon(
                     asset: 'assets/icons/leetcode.png',
+                    url: 'https://leetcode.com/u/Siddhes_2022/',
                     size: isMobile ? 60 : 76,
                   ),
                 ],
@@ -204,9 +210,10 @@ class _LinksAndLocation extends StatelessWidget {
         ),
         const SizedBox(height: 40),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "I'am from",
+              "I'm from",
               style: TextStyle(
                 fontFamily: 'Ravenna Serial ExtraBold',
                 fontWeight: FontWeight.w900,
@@ -221,14 +228,13 @@ class _LinksAndLocation extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'Ravenna Serial ExtraBold',
                 fontWeight: FontWeight.w900,
-                fontSize: isMobile ? 60 : 110,
+                fontSize: isMobile ? 60 : 80,
                 color: const Color(0xFFC6FCA6),
                 height: 1.0,
                 letterSpacing: 2.5,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
             ),
           ],
         ),
@@ -239,32 +245,54 @@ class _LinksAndLocation extends StatelessWidget {
 
 class _SocialIcon extends StatelessWidget {
   final String asset;
+  final String url;
   final double size;
-  const _SocialIcon({required this.asset, this.size = 44});
+  const _SocialIcon({
+    required this.asset,
+    required this.url,
+    this.size = 44,
+  });
+
+  Future<void> _launchUrl() async {
+    final Uri uri = Uri.parse(url);
+    try {
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        debugPrint('Could not launch $uri');
+      }
+    } catch (e) {
+      debugPrint('Error launching URL: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: const Color(0xFF081B28),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white.withOpacity(0.18)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.10),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: _launchUrl,
+        child: Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            color: const Color(0xFF081B28),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: Colors.white.withOpacity(0.18)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.10),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Center(
-        child: Image.asset(
-          asset,
-          width: size * 0.62,
-          height: size * 0.62,
-          fit: BoxFit.contain,
+          child: Center(
+            child: Image.asset(
+              asset,
+              width: size * 0.62,
+              height: size * 0.62,
+              fit: BoxFit.contain,
+            ),
+          ),
         ),
       ),
     );

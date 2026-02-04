@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:newportfoliodynamic/currently_learning_section.dart';
+import 'package:newportfoliodynamic/strip_section_2.dart';
 import 'package:provider/provider.dart';
 // import 'hero_section.dart';
 // import 'about_section.dart';
 import 'hero_about_section.dart';
-import 'strip_section.dart';
+import 'strip_section_1.dart';
 import 'profile_overview_section.dart';
+import 'technologies_section.dart';
+import 'github_stats_section.dart';
+import 'projects_section.dart';
+import 'education_section.dart';
+import 'experiences_section.dart';
+import 'footer_section.dart';
 
 void main() {
   runApp(const MyApp());
@@ -88,8 +96,18 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             HeroAboutSection(),
-            StripSection(),
+            StripSection1(),
             ProfileOverviewSection(),
+            GithubStatsSection(),
+            TechnologiesSection(),
+            StripSection2(),
+            CurrentlyLearningSection(),
+            StripSection1(),
+            ProjectsSection(),
+            StripSection2(),
+            EducationSection(),
+            ExperiencesSection(),
+            FooterSection(),
             // Add next sections here
           ],
         ),
